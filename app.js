@@ -23,12 +23,12 @@ const server = app.listen(port, function () {
 })
 
     app
-        .route('/test')
+        .route('/')
         .get(
             (req, res) => {
                 //TODO: менять orderChat и orderCall
-                const data = getTranscript(orderChat, 'chat')
-                // const data = getTranscript(orderCall, 'call')
+                // const data = getTranscript(orderChat, 'chat')
+                const data = getTranscript(orderCall, 'call')
                 res.status(200).json(
                     data
                 )

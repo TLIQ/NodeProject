@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { blocksChat, blocksCalls, stepsCalls, stepsChat, processesCall,
-processesChat, scriptParametersCalls, scriptParametersChat} from "../data/index.js"
+processesChat, scriptParametersCalls, scriptParametersChat } from "../data/index.js"
 import { DateTime } from 'luxon'
 
 export const getTranscript = (order, mode) => {
@@ -64,6 +64,7 @@ export const getTranscript = (order, mode) => {
     let transcript;
     let array_sep = [];
     let sentence = {};
+    // let paramsExist = []
 
 
     for (let k = 0; k < order.dialog.operator.length; k++) {
@@ -99,6 +100,7 @@ export const getTranscript = (order, mode) => {
                     trans_obj[tmp_keys.length + i] = obj;
                 } else {
                     obj.offset = DateTime.fromSeconds(order.dialog.client[i].offset).toFormat("mm:ss:uu")
+                    // obj.offset = order.dialog.client[i].offset;
                     obj.cl_word = order.dialog.client[i].value;
                     obj.loudness = order.dialog.client[i].loudness;
                     obj.confidence = order.dialog.client[i].confidence;
@@ -138,6 +140,7 @@ export const getTranscript = (order, mode) => {
                                 trans_obj[trans].weight = elements[key].features[feature].weight;
                                 steps.push(elements[key].step);
                                 steps_id.push(elements[key]._id);
+                                // params.push(scriptParameters[feature].short_name);
                                 params.push(feature);
                             }
                         }
@@ -149,8 +152,11 @@ export const getTranscript = (order, mode) => {
 
             trans_obj[trans].steps = Array.from(new Set(steps.map((item) => item)));
             trans_obj[trans].steps_id = Array.from(new Set(steps_id.map((item) => item)));
+            // trans_obj[trans].steps = steps;
+            // trans_obj[trans].steps_id = steps_id;
         }
         if (params.length > 0) {
+            // trans_obj[trans].params = params;
             trans_obj[trans].params = Array.from(new Set(params.map((item) => item)));
 
         }
@@ -258,7 +264,9 @@ export const getTranscript = (order, mode) => {
 
             arrayPhrases.push(obj)
         }
+
     }
+
 
     let phrasesDialog = []
     let phrasesDialogArray = []

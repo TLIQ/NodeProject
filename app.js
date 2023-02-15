@@ -1,5 +1,5 @@
 import express from "express"
-import { getTranscript } from "./src/index.js"
+import { getTranscript, testController } from "./src/index.js"
 import cors from "cors"
 import { orderCall, orderChat } from "./data/index.js"
 
@@ -29,6 +29,19 @@ const server = app.listen(port, function () {
                 //TODO: менять orderChat и orderCall
                 // const data = getTranscript(orderChat, 'chat')
                 const data = getTranscript(orderCall, 'call')
+                res.status(200).json(
+                    data
+                )
+            }
+        )
+
+    app
+        .route('/test')
+        .get(
+            (req, res) => {
+                //TODO: менять orderChat и orderCall
+                // const data = getTranscript(orderChat, 'chat')
+                const data = testController()
                 res.status(200).json(
                     data
                 )
